@@ -1,7 +1,8 @@
-*.pdf
-*.log
-*.aux
-*.synctex.gz*
-*.bbl
-*.blg
-
+*.*
+!*.doc
+!*.tex
+!*.pdf
+!*.cls
+!*.md
+!LICENSE
+!*.png
