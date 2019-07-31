@@ -1,6 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{iac}[2014/07/24 International Astronautical Congress conference paper LaTeX class]
 
+\RequirePackage[T1]{fontenc}
+\RequirePackage{newtxtext, newtxmath}
+
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{amstext}
@@ -17,9 +20,11 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
 \RequirePackage[explicit,compact]{titlesec}
-\RequirePackage[normalem]{ulem}
+%\RequirePackage[normalem]{ulem}
 \RequirePackage{etoolbox}
 \RequirePackage{alphalph}
+
+%\RequirePackage{indentfirst}
 
 \renewcommand{\headrulewidth}{0pt}
 %% Add section numbers in arabic rather than roman 5%
@@ -31,17 +36,17 @@
 	\csdef{iac@author\theauthcount}{#1}%
 	\csdef{iac@affiliation\theauthcount}{#2}}
 
-\setlength\parindent{12pt}
+\setlength\parindent{14pt}
 \RequirePackage[]{caption}
 \captionsetup[figure]{name=Fig.,format=hang,indention=-20pt}
 \captionsetup[table]{format=hang,indention=-24pt}
 
-\titlespacing{\section}{0pt}{*3}{*1.5}
-\titlespacing{\subsection}{0pt}{*2.5}{*0.5}
-\titlespacing{\subsubsection}{12pt}{*2}{*0.5}
-\titleformat{\section}{\normalfont}{\bfseries\thesection.\ }{0.5em}{\uline{\textbf{\textsc{#1}}}}
-\titleformat{\subsection}{\normalfont}{\thesection.\arabic{subsection}}{0.5em}{\textit{\uline{#1}}}
-\titleformat{\subsubsection}{\normalfont}{\thesection.\arabic{subsection}.\arabic{subsubsection}}{0pt}{\textit{\uline{#1}}}
+\titlespacing{\section}{0pt}{*2}{*1}
+\titlespacing{\subsection}{0pt}{*2}{*1}
+\titlespacing{\subsubsection}{0pt}{\baselineskip}{\parskip}
+\titleformat{\section}{\normalfont\bfseries\ifnum \thesection=1 \vspace{1.2\baselineskip}\fi}{\thesection.}{0.5em}{#1}
+\titleformat{\subsection}{\normalfont\itshape}{\thesection.\arabic{subsection}}{0.5em}{#1}
+\titleformat{\subsubsection}{\normalfont\itshape}{\thesection.\arabic{subsection}.\arabic{subsubsection}}{0.5em}{#1}
 
 \renewcommand{\abstract}[1]{\def\iac@abstract{#1}}
 \newcommand{\IACkeywords}[6]{\def\iac@keywords{\textbf{keywords:} #1, #2, #3, #4, #5, #6}}
@@ -60,7 +65,7 @@
 
 \renewcommand\maketitle{\twocolumn[
   \begin{@twocolumnfalse}
-  \lhead{}\chead{\footnotesize \iac@conference th International Astronautical Congress, {\iac@location}. \iac@makecopyright}\rhead{}%
+  \lhead{}\chead{\footnotesize \iac@conference th International Astronautical Congress, {\iac@location}.\\ \iac@makecopyright}\rhead{}%
   \lfoot{IAC--\iac@paperyear--\iac@papernumber}\cfoot{}\rfoot{Page \thepage\ of \pageref{LastPage}}%
   \begingroup
     \global\@topnum\z@   % Prevents figures from going at top of page.
@@ -79,10 +84,11 @@
 \def\@maketitle{%
   \newpage
   \begin{center}%
+  	\vskip -1em
     IAC--\iac@paperyear--\iac@papernumber\par%
     \vskip1em
-    {\large \textsc{\@title} \par}%
-    \vskip 1.5em%
+    {\large \textbf{{\@title}} \par}%
+    \vskip 1em%
     {\large
       \lineskip .5em%
       \newcounter{authnum}%
@@ -96,10 +102,13 @@
 	  }%
     }%
   \end{center}%
-  \indent\iac@abstract\par%
+  \begin{center}\vskip 1ex \textbf{Abstract}\end{center}%
+  \vskip -2ex \hspace{14pt} \iac@abstract\par%
   \indent\iac@keywords\par%
-  \vskip 4.5ex}%
-  \pagestyle{fancy}%
+  \vskip 4.5ex
+}
+
+\pagestyle{fancy}%
   
 \makeatletter
 \newcommand*{\fnsymbolsingle}[1]{%
@@ -121,6 +130,6 @@
   \fnsymbolmult{\value{footnote}}%
 }
 \makeatletter
-	\def\tagform@#1{\maketag@@@{[#1]\@@italiccorr}}
+	\def\tagform@#1{\maketag@@@{(#1)\@@italiccorr}}
 \makeatother
 \endinput
