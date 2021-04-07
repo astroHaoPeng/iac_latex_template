@@ -26,5 +26,5 @@ bibliography guidelines.
 
 -------------
 
-2019/07/31 Hao Peng (https://SpaceResearch.top/)
+2019/07/31 Hao Peng (https://blog/SpaceResearch.top/)
 - Adapted the original template to prepare an IAC-2019 paper.
