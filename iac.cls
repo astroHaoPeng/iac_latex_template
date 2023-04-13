@@ -9,7 +9,9 @@
 \RequirePackage{amstext}
 \RequirePackage{amsfonts}
 
-\LoadClass[twocolumn,letter paper,10pt]{article}
+%\LoadClass[twocolumn,letter paper,10pt]{article}
+%\LoadClass[letter paper,10pt]{article}
+\LoadClass[letter paper,11pt]{article}% for draft
 
 \RequirePackage[margin=1in,top=1.25in,headheight=\baselineskip]{geometry} % page layout
 \RequirePackage{graphicx}
@@ -63,24 +65,25 @@
 \newcommand{\IACcopyrightDAPL}[1]{\def\iac@copyright{Copyright \copyright\,#1 by the International Astronautical Federation. Under the copyright claimed herein, the U.S.\ Government has a royalty-free license to exercise all rights for Governmental purposes. All other rights are reserved by the copyright owner.}} 
 \newcommand\iac@makecopyright{{\iac@copyright}}
 
-\renewcommand\maketitle{\twocolumn[
-  \begin{@twocolumnfalse}
-  \lhead{}\chead{\footnotesize \iac@conference th International Astronautical Congress, {\iac@location}.\\ \iac@makecopyright}\rhead{}%
-  \lfoot{IAC--\iac@paperyear--\iac@papernumber}\cfoot{}\rfoot{Page \thepage\ of \pageref{LastPage}}%
-  \begingroup
-    \global\@topnum\z@   % Prevents figures from going at top of page.
-    \@maketitle
-    \@thanks
-  \endgroup
-  \global\let\maketitle\relax
-  \global\let\@maketitle\relax
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\title\relax
-  \global\let\date\relax
-  \global\let\and\relax
-  \end{@twocolumnfalse}
-  ]}
+\renewcommand\maketitle{
+	%\twocolumn[
+	\lhead{}\chead{\footnotesize \iac@conference th International Astronautical Congress, {\iac@location}.\\ \iac@makecopyright}\rhead{}%
+	\lfoot{IAC--\iac@paperyear--\iac@papernumber}\cfoot{}\rfoot{Page \thepage\ of \pageref{LastPage}}%
+	\begingroup
+	 \global\@topnum\z@   % Prevents figures from going at top of page.
+	 \@maketitle % defined below
+	 \@thanks
+	\endgroup
+	\global\let\maketitle\relax
+	\global\let\@maketitle\relax
+	\global\let\@date\@empty
+	\global\let\@title\@empty
+	\global\let\title\relax
+	\global\let\date\relax
+	\global\let\and\relax
+	%]
+}
+
 \def\@maketitle{%
   \newpage
   \begin{center}%
@@ -102,15 +105,15 @@
 	  }%
     }%
   \end{center}%
-  \begin{center}\vskip 1ex \textbf{Abstract}\end{center}%
-  \vskip -2ex \hspace{14pt} \iac@abstract\par%
-  \indent\iac@keywords\par%
+  \begin{center}\vskip 1ex \textbf{Abstract}\end{center}% show abstract title
+  \vskip -2ex \hspace{14pt} \iac@abstract\par% include abstract
+  \indent\iac@keywords\par% include key words
   \vskip 4.5ex
 }
 
 \pagestyle{fancy}%
-  
-\makeatletter
+
+%see: https://tex.stackexchange.com/questions/78221/changing-footnote-symbols
 \newcommand*{\fnsymbolsingle}[1]{%
   \ensuremath{%
     \ifcase#1%
@@ -124,12 +127,14 @@
     \fi
   }%
 }
-\makeatother
 \newalphalph{\fnsymbolmult}[mult]{\fnsymbolsingle}{}
 \renewcommand*{\thefootnote}{%
   \fnsymbolmult{\value{footnote}}%
 }
+%see: https://tex.stackexchange.com/questions/78221/changing-footnote-symbols
+
 \makeatletter
 	\def\tagform@#1{\maketag@@@{(#1)\@@italiccorr}}
 \makeatother
+
 \endinput
